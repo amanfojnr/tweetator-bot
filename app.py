@@ -37,7 +37,7 @@ def main():
     timeline
     """
     while True:
-        tweets = api.search(q=search_query, rpp=10, page=2)  # top 20 search results
+        tweets = api.search(q=search_query, rpp=10)  # top 20 search results
         status1 = api.retweet(tweets[randrange(0, 19)].id)  # retweet one at random
         print(status1.text + " -- rt")
         time.sleep(10)  # wait for 10s
