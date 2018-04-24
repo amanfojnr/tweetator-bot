@@ -23,13 +23,6 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
-search_query = """
-#ai OR #artificialintelligence OR #blockchain OR
-#bitcoin OR #altcoin OR #code OR #python OR #datascience OR
-#data OR #programming OR #algorithm OR #bukowski OR #javascript
-OR #java
-"""
-
 
 def main():
     """
@@ -37,13 +30,13 @@ def main():
     timeline
     """
     while True:
-        tweets = api.search(q=search_query, rpp=10) 
-        status1 = api.retweet(tweets[randrange(0, 10)].id)  # retweet one at random
+        tweets = api.home_timeline()[:10]  # pick top 10 tweets in newsfeed
+        status1 = api.retweet(tweets[randrange(0, 19)].id)  # retweet one at random
         print(status1.text + " -- rt")
         time.sleep(10)  # wait for 10s
-        status2 = api.create_favorite(tweets[randrange(0, 10)].id)  # favorite one at random
+        status2 = api.create_favorite(tweets[randrange(0, 19)].id)  # favorite one at random
         print(status2.text + " -- <3")
-        time.sleep(900)  # wait for 15mins
+        time.sleep(60 * 5)  # wait for 5mins
 
 if __name__ == "__main__":
     print("afiax --> tweetator has started")
