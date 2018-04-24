@@ -38,10 +38,10 @@ def main():
     """
     while True:
         tweets = api.search(q=search_query, rpp=10)  # top 20 search results
-        status1 = api.retweet(tweets[randrange(0, 19)].id)  # retweet one at random
+        status1 = api.retweet(tweets[randrange(0, 10)].id)  # retweet one at random
         print(status1.text + " -- rt")
         time.sleep(10)  # wait for 10s
-        status2 = api.create_favorite(home_tweets[randrange(0, 19)].id)  # favorite one at random
+        status2 = api.create_favorite(tweets[randrange(0, 10)].id)  # favorite one at random
         print(status2.text + " -- <3")
         time.sleep(900)  # wait for 15mins
 
