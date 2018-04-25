@@ -30,7 +30,17 @@ class MyStreamListener(tweepy.StreamListener):
         """ retweets or favorites incoming status """
 
         task_id = randrange(0, 2)
-        api.retweet(status.id) if task_id else self.create_favorite(status.id)
+        self.retweet(status) if task_id else self.favorite(status)
+
+    def retweet(self, status):
+            api.retweet(status.id)
+            print("RT -- " + status.text)
+            time.sleep(60 * 15)
+
+    def favorite(self, status):
+            api.create_favorite(status.id)
+            print("<3 -- " + status.text)
+            time.sleep(60 * 15)
 
     def on_error(self, status_code):
         if status_code == 420:
@@ -38,14 +48,17 @@ class MyStreamListener(tweepy.StreamListener):
             return False
 
 
-myStreamListener = MyStreamListener()
-myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener())
+def main():
+    myStream = tweepy.Stream(auth=api.auth, listener=MyStreamListener())
 
-myStream.filter(track=[
-    'python', 'blockchain', 'machinelearning',
-    'code', 'programming', 'data',
-    'ai', 'ethereum', 'c++', 'crypto',
-    'golang',
+    myStream.filter(track=[
+        'python', 'blockchain', 'machinelearning',
+        'code', 'programming', 'data',
+        'ai', 'ethereum', 'c++', 'crypto',
+        'golang',
     ])
 
-print("afiax --> tweetator has started")
+
+if __name__ == "__main__":
+    print("afiax --> tweetator has started")
+    main()
