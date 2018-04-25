@@ -30,17 +30,7 @@ class MyStreamListener(tweepy.StreamListener):
         """ retweets or favorites incoming status """
 
         task_id = randrange(0, 2)
-        self.retweet(status) if task_id else self.favorite(status)
-
-    def retweet(self, status):
-            api.retweet(status.id)
-            print("RT -- " + status.text)
-            time.sleep(60 * 15)
-
-    def favorite(self, status):
-            api.create_favorite(status.id)
-            print("<3 -- " + status.text)
-            time.sleep(60 * 15)
+        api.retweet(status.id) if task_id else self.create_favorite(status.id)
 
     def on_error(self, status_code):
         if status_code == 420:
