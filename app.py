@@ -49,8 +49,8 @@ class MyStreamListener(tweepy.StreamListener):
 
 
 def main():
-    myStream = MyStreamListener()
-    myStream = tweepy(auth=api.auth, listener=myStream())
+    myStreamListener = MyStreamListener()
+    myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener())
 
     myStream.filter(track=[
         'python', 'blockchain', 'machinelearning',
