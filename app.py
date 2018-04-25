@@ -52,10 +52,10 @@ def main():
     myStream = tweepy.Stream(auth=api.auth, listener=MyStreamListener())
 
     myStream.filter(track=[
-        'python', 'blockchain', 'machinelearning',
-        'code', 'programming', 'data',
-        'ai', 'ethereum', 'c++', 'crypto',
-        'golang',
+        '#python', '#blockchain', '#machinelearning',
+        '#code', '#programming', '#data',
+        '#ai', '#ethereum', '#c++', '#crypto',
+        '#golang',
     ])
 
 
