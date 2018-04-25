@@ -38,18 +38,14 @@ class MyStreamListener(tweepy.StreamListener):
             return False
 
 
-def main():
-    myStreamListener = MyStreamListener()
-    myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener())
+myStreamListener = MyStreamListener()
+myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener())
 
-    myStream.filter(track=[
-        'python', 'blockchain', 'machinelearning',
-        'code', 'programming', 'data',
-        'ai', 'ethereum', 'c++', 'crypto',
-        'golang',
+myStream.filter(track=[
+    'python', 'blockchain', 'machinelearning',
+    'code', 'programming', 'data',
+    'ai', 'ethereum', 'c++', 'crypto',
+    'golang',
     ])
 
-
-if __name__ == "__main__":
-    print("afiax --> tweetator has started")
-    main()
+print("afiax --> tweetator has started")
