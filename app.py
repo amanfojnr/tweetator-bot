@@ -24,19 +24,41 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 
+class MyStreamListener(tweepy.StreamListener):
+
+    def on_status(self, status):
+        """ retweets or favorites incoming status """
+
+        task_id = randrange(0, 2)
+        self.retweet(status) if task_id else self.favorite(status)
+
+    def retweet(self, status):
+            api.retweet(status.id)
+            print("RT -- " + status.text)
+            time.sleep(60 * 15)
+
+    def favorite(self, status):
+            api.create_favorite(status.id)
+            print("<3 -- " + status.text)
+            time.sleep(60 * 15)
+
+    def on_error(self, status_code):
+        if status_code == 420:
+            # returning False in on_data disconnects the stream
+            return False
+
+
 def main():
-    """
-    Retweets and favorites 2 picked tweets randomly from
-    timeline
-    """
-    while True:
-        tweets = api.home_timeline()[:10]  # pick top 10 tweets in newsfeed
-        status1 = api.retweet(tweets[randrange(0, 19)].id)  # retweet one at random
-        print(status1.text + " -- rt")
-        time.sleep(10)  # wait for 10s
-        status2 = api.create_favorite(tweets[randrange(0, 19)].id)  # favorite one at random
-        print(status2.text + " -- <3")
-        time.sleep(60 * 5)  # wait for 5mins
+    myStream = MyStreamListener()
+    myStream = tweepy(auth=api.auth, listener=MyStreamListener)
+
+    myStream.filter(track=[
+        'python', 'blockchain', 'machinelearning',
+        'code', 'programming', 'data',
+        'ai', 'ethereum', 'c++', 'crypto',
+        'golang',
+    ])
+
 
 if __name__ == "__main__":
     print("afiax --> tweetator has started")
